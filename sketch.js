@@ -5,6 +5,8 @@ let tooltipVisible = false;
 let tooltipContent = {};
 let tooltip;
 let legend;
+let legendX2 = 65;
+let legendY2 = 800;
 
 
 function preload() {
@@ -12,7 +14,7 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(windowWidth, windowHeight);
+  createCanvas(windowWidth, windowHeight*2);
   textAlign(CENTER);
   let margin = 50;
 
@@ -38,8 +40,8 @@ function setup() {
   let yMax = 100;
 
   // Calculate plot dimensions
-  plotWidth = width - 5 * margin;
-  plotHeight = height - 2 * margin;
+  plotWidth = width - 2 * margin;
+  plotHeight = height/2 - 2 * margin;
 
 
 
@@ -90,7 +92,7 @@ function setup() {
     text((5 - i) * 20, plotX - 10, y); // Tick labels
   }
 
-  // Draw title
+  // Draw title()
   fill(0);
   textAlign(CENTER);
   textSize(18);
@@ -142,20 +144,7 @@ function setup() {
     }
   }
 
-  // Draw legend
-  fill(0);
-  textSize(12);
-  textAlign(LEFT);
-
-  for (let i = 0; i < topCountries.length; i++) {
-    let country = topCountries[i];
-    let x = legendX;
-    let y = legendY + i * legendSpacing;
-    fill(countryColors[topCountries[i]]);
-    ellipse(x, y + 5, 10, 10);
-    fill(0);
-    text(country, x + 15, y);
-  }
+  
 
   //Add Tooltip
   tooltip = createDiv('');
@@ -179,15 +168,33 @@ tooltip.style('font-size', `${tooltipFontSize}px`);
 
 function createLegend() {
   let legendItems = [];
+   // Calculate legend dimensions
+//  let legendX = plotX + plotWidth + 30;
+//  let legendY = plotY;
+//  let legendSpacing = 20;
+
+ legendX2;
+ legendY2;
+ let legendSpacing = 20;
 
   for (let i = 0; i < topCountries.length; i++) {
     let country = topCountries[i];
+    let x = legendX2;
+    let y = legendY2 + i * legendSpacing;
+    
     country = country.replace(/"/g, ''); // Remove quotes
     let checkbox = createCheckbox(country, true);
+    checkbox.position(x, y); 
     checkbox.changed(toggleCountryVisibility);
     checkbox.style('font-size', '12px'); // Set font size
     checkbox.style('font-family', 'sans-serif'); // Set font family
     checkbox.style('color', 'black'); // Set text color
+    
+
+    fill(countryColors[topCountries[i]]);
+    ellipse(x-10, y+11, 10, 10);
+    fill(0);
+
     
     legendItems.push({ country, checkbox });
   }
@@ -230,6 +237,42 @@ function toggleCountryVisibility() {
 function draw() {
   let hovered = false;
 
+//  // Calculate legend dimensions
+//  let legendX = plotX + plotWidth + 30;
+//  let legendY = plotY;
+//  let legendSpacing = 20;
+
+//   // Draw legend
+//   fill(0);
+//   textSize(12);
+//   textAlign(LEFT);
+
+//   for (let i = 0; i < topCountries.length; i++) {
+//     let country = topCountries[i];
+//     let x = legendX;
+//     let y = legendY + i * legendSpacing;
+//     fill(countryColors[topCountries[i]]);
+//     ellipse(x, y + 5, 10, 10);
+//     fill(0);
+//     text(country, x + 15, y);
+//   }
+
+legendX2;
+ legendY2;
+ let legendSpacing = 20;
+
+  for (let i = 0; i < topCountries.length; i++) {
+    let country = topCountries[i];
+    let x = legendX2;
+    let y = legendY2 + i * legendSpacing;
+    
+
+    fill(countryColors[topCountries[i]]);
+    ellipse(x-10, y+11, 10, 10);
+    fill(0);
+  }
+
+
   for (let item of legend) {
     let country = item.country;
     let visible = item.checkbox.checked();
@@ -261,3 +304,4 @@ function draw() {
     tooltip.hide();
   }
 }
+noLoop()
