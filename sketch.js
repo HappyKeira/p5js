@@ -7,6 +7,7 @@ let tooltip;
 let legend;
 let legendX2 = 65;
 let legendY2 = 800;
+let tooltipX;
 
 
 function preload() {
@@ -257,7 +258,7 @@ function draw() {
 //     text(country, x + 15, y);
 //   }
 
-legendX2;
+ legendX2;
  legendY2;
  let legendSpacing = 20;
 
@@ -283,8 +284,27 @@ legendX2;
         let y = map(row.getNum('AirQuality'), 0, 100, plotY + plotHeight, plotY);
         let d = dist(mouseX, mouseY, x, y);
 
+         // Calculate tooltip position
+      let tooltipX;
+      if(x < width/2) {
+        // Left side  
+        tooltipX = x + 10; 
+      }
+      else {
+        // Right side  
+        tooltipX = mouseX -100;  
+      }
+
+      let tooltipY = mouseY + 10;
+        
+
         if (d < 8) {
           hovered = true;
+      
+        tooltip.position(tooltipX, tooltipY);
+
+         
+          
           tooltip.html(`
             City: ${row.getString('City')}<br>
             Region: ${row.getString('Region').replace(/"/g, '')}<br>
@@ -293,7 +313,7 @@ legendX2;
             Water Quality: ${row.getNum('WaterQuality')}
           `);
           tooltip.show();
-          tooltip.position(mouseX + 10, mouseY - 10);
+          tooltip.position(tooltipX, tooltipY);
           break;
         }
       }
@@ -304,4 +324,3 @@ legendX2;
     tooltip.hide();
   }
 }
-noLoop()
