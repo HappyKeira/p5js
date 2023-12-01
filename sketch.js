@@ -6,7 +6,7 @@ let tooltipContent = {};
 let tooltip;
 let legend;
 let legendX2 = 65;
-let legendY2 = 800;
+let legendY2;
 let tooltipX;
 
 
@@ -131,6 +131,7 @@ function setup() {
     countryColors[country] = colors[i % colors.length];
   }
 
+  legendY2 = plotY + plotHeight + 50; 
 
 
   // Draw data points
@@ -183,7 +184,6 @@ function createLegend() {
     let x = legendX2;
     let y = legendY2 + i * legendSpacing;
     
-    country = country.replace(/"/g, ''); // Remove quotes
     let checkbox = createCheckbox(country, true);
     checkbox.position(x, y); 
     checkbox.changed(toggleCountryVisibility);
