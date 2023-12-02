@@ -42,7 +42,7 @@ function setup() {
 
   // Calculate plot dimensions
   plotWidth = width - 2 * margin;
-  plotHeight = windowHeight  - 2 * margin;
+  plotHeight = windowHeight - 2 * margin;
 
 
 
@@ -324,12 +324,12 @@ function draw() {
     tooltip.hide();
   }
 
-  textAlign(CENTER, BOTTOM); // Center text horizontally, align to the bottom
-  textSize(14); // Set the text size
-  fill(150); // Set the text color to black
+  textAlign(CENTER, BOTTOM);
+  textSize(14); //
+  fill(150); // 
   let textContent = "by Keira H";
-  let linesFromBottom = 3; // Adjust this value to set the distance from the bottom
-  text(textContent, width / 2, height - linesFromBottom * textSize()); // Display the text
+  let linesFromBottom = 3;
+  text(textContent, width / 2, height - linesFromBottom * textSize());
   text.style('font-family', tooltipFont);
 
 }
