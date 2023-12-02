@@ -15,7 +15,7 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(windowWidth, windowHeight*2);
+  createCanvas(windowWidth, windowHeight * 1.5);
   textAlign(CENTER);
   let margin = 50;
 
@@ -42,7 +42,7 @@ function setup() {
 
   // Calculate plot dimensions
   plotWidth = width - 2 * margin;
-  plotHeight = height/2 - 2 * margin;
+  plotHeight = windowHeight  - 2 * margin;
 
 
 
@@ -131,7 +131,7 @@ function setup() {
     countryColors[country] = colors[i % colors.length];
   }
 
-  legendY2 = plotY + plotHeight + 50; 
+  legendY2 = plotY + plotHeight + 77;
 
 
   // Draw data points
@@ -146,7 +146,7 @@ function setup() {
     }
   }
 
-  
+
 
   //Add Tooltip
   tooltip = createDiv('');
@@ -158,45 +158,45 @@ function setup() {
   tooltip.style('line-height', '1.5');
 
 
-let tooltipFont = textFont();
-let tooltipFontSize = 12; 
-tooltip.style('font-family', tooltipFont);
-tooltip.style('font-size', `${tooltipFontSize}px`);
-  
-  
-    // Create legend with checkboxes for each country
+  let tooltipFont = textFont();
+  let tooltipFontSize = 12;
+  tooltip.style('font-family', tooltipFont);
+  tooltip.style('font-size', `${tooltipFontSize}px`);
+
+
+  // Create legend with checkboxes for each country
   legend = createLegend();
 }
 
 function createLegend() {
   let legendItems = [];
-   // Calculate legend dimensions
-//  let legendX = plotX + plotWidth + 30;
-//  let legendY = plotY;
-//  let legendSpacing = 20;
+  // Calculate legend dimensions
+  //  let legendX = plotX + plotWidth + 30;
+  //  let legendY = plotY;
+  //  let legendSpacing = 20;
 
- legendX2;
- legendY2;
- let legendSpacing = 20;
+  legendX2;
+  legendY2;
+  let legendSpacing = 20;
 
   for (let i = 0; i < topCountries.length; i++) {
     let country = topCountries[i];
     let x = legendX2;
     let y = legendY2 + i * legendSpacing;
-    
+
     let checkbox = createCheckbox(country, true);
-    checkbox.position(x, y); 
+    checkbox.position(x, y);
     checkbox.changed(toggleCountryVisibility);
     checkbox.style('font-size', '12px'); // Set font size
     checkbox.style('font-family', 'sans-serif'); // Set font family
     checkbox.style('color', 'black'); // Set text color
-    
+
 
     fill(countryColors[topCountries[i]]);
-    ellipse(x-10, y+11, 10, 10);
+    ellipse(x - 10, y + 11, 10, 10);
     fill(0);
 
-    
+
     legendItems.push({ country, checkbox });
   }
 
@@ -204,7 +204,7 @@ function createLegend() {
 }
 
 function toggleCountryVisibility() {
-    clear(); // Clear and redraw the canvas
+  clear(); // Clear and redraw the canvas
 
   for (let item of legend) {
     let country = item.country;
@@ -227,7 +227,7 @@ function toggleCountryVisibility() {
   }
 
 
-  
+
 }
 
 
@@ -238,38 +238,38 @@ function toggleCountryVisibility() {
 function draw() {
   let hovered = false;
 
-//  // Calculate legend dimensions
-//  let legendX = plotX + plotWidth + 30;
-//  let legendY = plotY;
-//  let legendSpacing = 20;
+  //  // Calculate legend dimensions
+  //  let legendX = plotX + plotWidth + 30;
+  //  let legendY = plotY;
+  //  let legendSpacing = 20;
 
-//   // Draw legend
-//   fill(0);
-//   textSize(12);
-//   textAlign(LEFT);
+  //   // Draw legend
+  //   fill(0);
+  //   textSize(12);
+  //   textAlign(LEFT);
 
-//   for (let i = 0; i < topCountries.length; i++) {
-//     let country = topCountries[i];
-//     let x = legendX;
-//     let y = legendY + i * legendSpacing;
-//     fill(countryColors[topCountries[i]]);
-//     ellipse(x, y + 5, 10, 10);
-//     fill(0);
-//     text(country, x + 15, y);
-//   }
+  //   for (let i = 0; i < topCountries.length; i++) {
+  //     let country = topCountries[i];
+  //     let x = legendX;
+  //     let y = legendY + i * legendSpacing;
+  //     fill(countryColors[topCountries[i]]);
+  //     ellipse(x, y + 5, 10, 10);
+  //     fill(0);
+  //     text(country, x + 15, y);
+  //   }
 
- legendX2;
- legendY2;
- let legendSpacing = 20;
+  legendX2;
+  legendY2;
+  let legendSpacing = 20;
 
   for (let i = 0; i < topCountries.length; i++) {
     let country = topCountries[i];
     let x = legendX2;
     let y = legendY2 + i * legendSpacing;
-    
+
 
     fill(countryColors[topCountries[i]]);
-    ellipse(x-10, y+11, 10, 10);
+    ellipse(x - 10, y + 11, 10, 10);
     fill(0);
   }
 
@@ -284,27 +284,27 @@ function draw() {
         let y = map(row.getNum('AirQuality'), 0, 100, plotY + plotHeight, plotY);
         let d = dist(mouseX, mouseY, x, y);
 
-         // Calculate tooltip position
-      let tooltipX;
-      if(x < width/2) {
-        // Left side  
-        tooltipX = x + 10; 
-      }
-      else {
-        // Right side  
-        tooltipX = mouseX -100;  
-      }
+        // Calculate tooltip position
+        let tooltipX;
+        if (x < width / 2) {
+          // Left side  
+          tooltipX = x + 10;
+        }
+        else {
+          // Right side  
+          tooltipX = mouseX - 100;
+        }
 
-      let tooltipY = mouseY + 10;
-        
+        let tooltipY = mouseY + 10;
+
 
         if (d < 8) {
           hovered = true;
-      
-        tooltip.position(tooltipX, tooltipY);
 
-         
-          
+          tooltip.position(tooltipX, tooltipY);
+
+
+
           tooltip.html(`
             City: ${row.getString('City')}<br>
             Region: ${row.getString('Region').replace(/"/g, '')}<br>
@@ -323,4 +323,14 @@ function draw() {
   if (!hovered) {
     tooltip.hide();
   }
+
+  textAlign(CENTER, BOTTOM); // Center text horizontally, align to the bottom
+  textSize(14); // Set the text size
+  fill(150); // Set the text color to black
+  let textContent = "by Keira H";
+  let linesFromBottom = 3; // Adjust this value to set the distance from the bottom
+  text(textContent, width / 2, height - linesFromBottom * textSize()); // Display the text
+  text.style('font-family', tooltipFont);
+
 }
+
